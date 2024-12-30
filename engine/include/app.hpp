@@ -2,6 +2,7 @@
 
 #include <pipeline.hpp>
 #include <window.hpp>
+#include <device.hpp>
 
 namespace engine {
     class App {
@@ -14,6 +15,12 @@ namespace engine {
 
         private:
             Window window{WIDTH, HEIGHT, "Hello Vulkan!"};
-            Pipeline pipeline{"shaders/bin/simple_shader.vert.spv", "shaders/bin/simple_shader.frag.spv"};
+            Device device{window};
+            Pipeline pipeline{
+                device, 
+                "shaders/bin/simple_shader.vert.spv", 
+                "shaders/bin/simple_shader.frag.spv",
+                Pipeline::defaultPipelineConfigInfo(WIDTH, HEIGHT)
+            };
     };
 }

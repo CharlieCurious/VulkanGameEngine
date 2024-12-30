@@ -1,4 +1,8 @@
+#define GLFW_INCLUDE_VULKAN
 #include <GLFW/glfw3.h>
+
+#include <stdexcept>
+#include <vulkan/vulkan_core.h>
 #include <window.hpp>
 
 namespace engine {
@@ -18,5 +22,11 @@ namespace engine {
         glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
 
         window = glfwCreateWindow(width, height, windowName.c_str(), nullptr, nullptr);
+    }
+
+    void Window::createWindowSurface(VkInstance instance, VkSurfaceKHR *surface) {
+        if (glfwCreateWindowSurface(instance, window, nullptr, surface) != VK_SUCCESS) {
+            throw std::runtime_error("Failed to create window surface");
+        }
     }
 }
